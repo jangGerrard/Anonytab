@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD mapper 3.0/EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+
+<mapper namespace="kr.kosta.team2.anonymoustab.dao.impl.mapper.CommentMapper">
+
+	<resultMap id="comment-resultmap" type="Comment">
+		<id property="id" column="id" />
+		<result property="contents" column="contents" />
+		<result property="articleNo" column="article_no" />
+		<result property="createDate" column="create_date" />
+		<result property="createMemberId" column="create_member_id" />
+		<result property="recommend" column="recommend" />
+	</resultMap>
+
+	<select id="selectComments" resultMap="comment-resultmap">
+		select
+			id,
+			contents,
+			article_no,
+			create_date,
+			create_member_id,
+			recommend
+		from comment
+	</select>
+
+	<select id="selectComment" parameterType="long" resultMap="comment-resultmap">
+		select
+			id,
+			contents,
+			article_no,
+			create_date,
+			create_member_id,
+			recommend
+		from comment
+		where id = #{value}
+	</select>
+
+<select id="selectCommentByArticleNo" parameterType="long" resultMap="comment-resultmap">
+		select
+			id,
+			contents,
+			article_no,
+			create_date,
+			create_member_id,
+			recommend
+		from comment
+		where article_no = #{value}
+	</select>
+
+<insert id="insertComment" parameterType="Comment">
+	insert into comment(contents,article_no,create_date,create_member_id) 
+	values(#{contents},#{articleNo},#{createDate},#{createMemberId})
+</insert>
+
+</mapper>

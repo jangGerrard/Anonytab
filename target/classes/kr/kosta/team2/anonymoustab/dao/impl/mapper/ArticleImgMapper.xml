@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD mapper 3.0/EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+
+<mapper namespace="kr.kosta.team2.anonymoustab.dao.impl.mapper.ArticleImgMapper">
+
+	<insert id="insertArticleImg">
+		insert into article_img (no , img_path , del_yn)
+		values (#{no} , #{imgPath} , #{delYn})
+	</insert>	
+	
+	<resultMap id="articleimg-resultmap" type="ArticleImg">
+		<id property="no" column="no" />
+		<result property="imgPath" column="img_path" />
+		<result property="delYn" column="del_yn" />
+	</resultMap>
+
+	<select id="selectArticleImgs" resultMap="articleimg-resultmap">
+		select
+			no,
+			img_path,
+			del_yn
+		from article_img
+	</select>
+
+	<select id="selectArticleImg" parameterType="long" resultMap="articleimg-resultmap">
+		select
+			no,
+			img_path,
+			del_yn
+		from article_img
+		where no = #{value}
+	</select>
+	
+	
+</mapper>

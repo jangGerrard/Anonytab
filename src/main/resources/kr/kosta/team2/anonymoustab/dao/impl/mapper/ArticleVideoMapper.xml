@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD mapper 3.0/EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="kr.kosta.team2.anonymoustab.dao.impl.mapper.ArticleVideoMapper">
+	
+	
+	<insert id="insertArticleVideo" parameterType="ArticleVideo">
+		insert into article_video(
+			no,
+			video_path
+		) values (
+			#{no},
+			#{videoPath}
+		)
+	</insert>
+
+	<resultMap id="articlevideo-resultmap" type="ArticleVideo">
+		<id property="no" column="no" />
+		<result property="videoPath" column="video_path" />
+	</resultMap>
+	
+	<select id="selectArticleVideo" parameterType="long"  resultMap="articlevideo-resultmap">
+		select 
+			no, 
+			video_path
+		from 
+			article_video
+		where
+			no = #{value}
+	</select>
+	<select id="selectArticleVideos"  resultMap="articlevideo-resultmap">
+		select 
+			no, 
+			video_path
+		from 
+			article_video
+	</select>
+
+
+</mapper>

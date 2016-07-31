@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD mapper 3.0/EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+
+<mapper namespace="kr.kosta.team2.anonymoustab.dao.impl.mapper.MemberMapper">
+
+
+	<update id="updateMember" parameterType="Member">
+		update member
+		set
+			email = #{email},
+			name = #{name},
+			password = #{password},
+			date_of_birth = #{birthDate},
+			phone = #{phone}		
+		where id = #{id}
+	</update>
+
+   <resultMap id="member-resultmap" type="Member">
+      <id property="id" column="id" />
+      <result property="email" column="email" />
+      <result property="password" column="password" />
+      <result property="name" column="name" />
+      <result property="phone" column="phone"/>
+      <result property="birthDate" column="date_of_birth" />
+   </resultMap>
+
+   <select id="selectMembers" resultMap="member-resultmap">
+      select
+      id,
+      email,
+      password,
+      name,
+      date_of_birth,
+      phone
+      from member
+   </select>
+
+   <select id="selectMember" parameterType="long" resultMap="member-resultmap">
+      select
+      id,
+      email,
+      password,
+      name,
+      date_of_birth,
+      phone
+      from member
+      where id = #{value}
+   </select>
+
+   <select id="selectMemberByEmail" parameterType="string"
+      resultMap="member-resultmap">
+      select
+	      id,
+	      email,
+	      password,
+	      phone,
+	      name,
+	      date_of_birth
+      from member
+      where email =  #{value}
+   </select>
+   
+   <select id="selectMemberByName" parameterType="string"
+      resultMap="member-resultmap">
+      select
+      id,
+      email,
+      password,
+      phone,
+      name,
+      date_of_birth
+      from member
+      where name =
+      #{value}
+   </select>
+
+
+	<select id="selectMemberFriendsById" parameterType="long" resultMap="member-resultmap">
+		select m.id, m.email, m.name, m.password, m.phone,m.date_of_birth
+			from (select friend_id
+   				from friend_list
+  		 		where id=#{value}) se
+			left join member m on se.friend_id=m.id;
+	</select>
+	
+	<select id="selectUnregisteredMember" parameterType="long" resultMap="member-resultmap">
+		select m.id, m.email, m.name, m.password, m.phone,m.date_of_birth
+		from member as m
+		where id not in
+						(select  fl.friend_id
+						 from friend_list  as fl
+						 where fl.id=#{value} )
+						 and not m.id=#{value}
+	</select>
+
+	
+   
+   
+   <insert id="insertMembers" parameterType="Member" keyProperty="id"
+   keyColumn="id" useGeneratedKeys="true">
+	   insert into member(
+		      email, 
+		      password,
+		      name,
+		      phone,
+		      date_of_birth
+	      )
+	      values(
+		      #{email},
+		      #{password},
+		      #{name},
+		      #{phone},
+		      #{birthDate}
+	      )
+	      <selectKey keyProperty="id" resultType="long">
+			select LAST_INSERT_ID() as id
+		</selectKey>	
+   </insert>
+
+
+
+
+
+
+</mapper>

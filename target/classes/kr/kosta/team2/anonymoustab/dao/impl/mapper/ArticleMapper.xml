@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD mapper 3.0/EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+
+<mapper namespace="kr.kosta.team2.anonymoustab.dao.impl.mapper.ArticleMapper">
+
+	<insert id = "insertArticle" parameterType="Article"  useGeneratedKeys="true" keyProperty="no" keyColumn="no" >
+		insert into article(
+			contents,
+			create_member_id,
+			create_date,
+			level,
+			del_yn
+			)
+		values (
+			#{contents:VARCHAR},
+			#{createMemberId:NUMERIC},
+			#{createDate:TIMESTAMP},
+			#{level:NUMERIC},
+			#{delYn:BOOLEAN}
+			)
+	</insert>
+	
+	<update id="updateArticleRecommendAdd" parameterType="long">
+		update article set recommend=(recommend+1) where no=#{value};
+	</update>
+	
+	<update id="updateArticleRecommendMinus" parameterType="long">
+		update article set recommend=(recommend-1) where no=#{value};
+	</update>
+	
+	<update id="updateArticleDelYnTrue" parameterType="Article">
+		update article 
+		set del_yn = true
+		where no = #{no}
+	</update>
+
+	<resultMap id="article-resultmap" type="Article">
+		<id property="no" column="no" />
+		<result property="contents" column="contents" />
+		<result property="createMemberId" column="create_member_id" />
+		<result property="createDate" column="create_date" />
+		<result property="level" column="level" />
+		<result property="recommend" column="recommend" />
+		<result property="delYn" column="del_yn" />
+	</resultMap>
+
+
+	<select id="selectNewsfeedArticles" parameterType="map" resultMap="article-resultmap">
+			(
+					select no, contents ,create_member_id,create_date, level, recommend, del_yn
+							from (	select no, contents ,create_member_id,create_date, level, recommend, del_yn
+									 from article
+						where (level=1 or create_member_id=#{id}) and not level in(3,4) and del_yn = false
+		
+				union all
+		
+					select a.no, a.contents, a.create_member_id ,a.create_date,a.level, a.recommend, a.del_yn
+						from (	select friend_id
+								from friend_list
+								where id= #{id}) se
+							left join article a on se.friend_id=a.create_member_id
+						where level =2 and del_yn = false
+		
+					) res
+			)	order by create_date desc
+				limit #{limit}
+	
+	</select>
+	
+	<select id="selectAnonyFeedArticles" parameterType="Integer" resultMap="article-resultmap">
+		select no, contents ,create_member_id,create_date, level, recommend, del_yn
+		from article 
+		where level = 4  and del_yn = false
+		order by  create_date desc
+		limit #{value}
+	</select>
+	
+	<select id="selectAnonyFeedTopFiveArticles" resultMap="article-resultmap">
+		select no, contents ,create_member_id,create_date, level, recommend, del_yn
+			from article 
+			where del_yn = false and level = 4 and not recommend=0   
+			order by recommend desc
+			limit 5
+
+
+	</select>
+
+	<select id="selectMyNewsfeedArticles" parameterType="map" resultMap="article-resultmap">
+		select * from article
+		where create_member_id = #{id} and del_yn = false
+		order by create_date desc 
+		limit #{limit}		
+	</select>
+
+
+	<select id="selectArticles" resultMap="article-resultmap" >
+		select
+			no,
+			contents,
+			create_member_id,
+			create_date,
+			level,
+			recommend,
+			del_yn
+		from article
+		where del_yn = false
+	</select>
+
+	<select id="selectArticle" parameterType="long" resultMap="article-resultmap">
+		select
+			no,
+			contents,
+			create_member_id,
+			create_date,
+			level,
+			recommend,
+			del_yn
+		from article
+		where no = #{value} and del_yn = false
+	</select>
+	
+
+
+
+</mapper>

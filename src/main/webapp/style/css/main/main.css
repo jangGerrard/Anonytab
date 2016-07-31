@@ -1,0 +1,205 @@
+@CHARSET "UTF-8";
+
+@CHARSET "UTF-8";
+
+#myPageName
+{
+	font-size: 30px;
+	
+}
+#newsCreate
+{
+	font-size: 20px;
+	
+}
+
+
+
+div#popup
+
+{
+		 position: absolute;
+		 top:100px;
+		 left:100px;
+
+		 z-index:100;		
+
+		 background: #ffffff;
+		 width: 80%;
+		 height: 80%;
+		 border:3px solid #eeaaaa;		
+
+		 -webkit-border-radius : 10px;	
+
+ }
+ 
+
+ {
+ 	position: absolute;
+      top:0;
+      left:0;      
+      
+      z-index:90;
+      
+      background-color: #999999;
+      opacity:0.8;
+      
+      width: 100%;
+      height: 100%;      
+ }
+ 
+#profileImg
+ {	
+ 	float : left;
+ 	width: 40px;
+ 	height: 20px,
+ }
+ 
+#duplexMargin{
+	margin-left : 5px;
+	margin-right : 5px;
+	
+}
+ 
+#leftMargin
+{
+	margin-left : 5px;
+	
+} 
+
+#rightMargin
+{
+	margin-right : 5px;
+	
+} 
+
+#minProfileImg 
+
+ {	
+ 	float : left;
+ 	width: 30px;
+ 	height: 7px,
+ }
+ 
+ #BigleftMargin{
+ 
+ margin-left : 20px;
+ 
+ }
+ 
+  #BigRightMargin{
+ 
+ margin-right : 10px;
+ 
+ }
+ 
+   #BigAllMargin{
+ 
+ margin-right : 500px;
+  margin-top : 70px;
+ }
+ 
+ 
+   #BigBottomMargin{
+ 
+ margin-bottom : 20px;
+ 
+ }
+ 
+ #BigTopMargin{
+ 
+ margin-top : 8px;
+  float : right;
+ 
+ }
+ 
+ .commentP
+ {
+ 	margin-bottom: 22px;
+ }
+ 
+   img
+ {	
+ 	float : left;
+ 	width: 500px;
+ 	height: 300px,
+ }
+  
+ 
+ 
+ .img-rounded {
+	border-radius: 5px;
+}
+
+#MyFriendImg{
+	
+	float : left;
+ 	background: url(blah.jpg) 100% 100% no-repeat; /* 50% 50% centers image in div */
+	width: 80px;
+	height: 80px;
+    
+}
+
+
+ 
+.img-responsive {
+	display: block;
+	height: auto;
+	max-width: 100%;
+}
+.vjs-default-skin {
+	display: block;
+	height: auto;
+	max-width: 100%
+}
+
+.friendlistImg{
+	float : left;
+ 	width: 900px;
+ 	height: 900px,
+} 
+
+
+.dropdown-menu {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 1000;
+	display: none;
+	float: left;
+	min-width: 160px;
+	padding: 5px 0;
+	margin: 2px 0 0;
+	font-size: 14px;
+	list-style: none;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	border-radius: 4px;
+	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+	background-clip: padding-box
+}
+
+
+
+
+
+
+
+ 
+ ul
+ {
+ 	float: right;
+ }
+ 
+ .close {
+	float: right;
+	font-size: 21px;
+	font-weight: bold;
+	line-height: 1;
+	color: #000;
+	text-shadow: 0 1px 0 #fff;
+	opacity: .2;
+	filter: alpha(opacity = 20)
+}
